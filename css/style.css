@@ -145,8 +145,28 @@ p:last-child { margin-bottom: 0; }
 .site-header__brand-main { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--color-blue-dark); }
 .site-header__brand-sub { font-size: 0.78rem; color: var(--color-ink-soft); letter-spacing: 0.01em; }
 .site-header__actions { display: flex; align-items: center; gap: 18px; }
-.site-header__phone { display: flex; align-items: center; gap: 0.5em; font-weight: 700; color: var(--color-blue-dark); white-space: nowrap; }
-.site-header__phone svg { width: 19px; height: 19px; flex-shrink: 0; color: var(--color-clay); }
+/* Telefon als Button statt gleichgewichtiger Text-Link neben der Nav —
+   passend dazu, dass Termine ausschließlich telefonisch vereinbart werden
+   (nicht nur wegen "anders als die Standard-Nav-Zeile bei den letzten
+   Projekten", sondern weil der Anruf hier der eigentliche Conversion-Punkt
+   der ganzen Seite ist). */
+.site-header__phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-white);
+  background: var(--color-clay-dark);
+  white-space: nowrap;
+  padding: 0.6em 1.15em;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(188, 122, 99, 0.32);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.site-header__phone:hover, .site-header__phone:focus-visible { background: #744232; box-shadow: 0 10px 24px rgba(188, 122, 99, 0.42); }
+.site-header__phone:active { transform: translateY(1px); }
+.site-header__phone svg { width: 17px; height: 17px; flex-shrink: 0; color: var(--color-white); }
 
 .nav-toggle {
   display: none;
@@ -206,6 +226,7 @@ p:last-child { margin-bottom: 0; }
   .site-nav__list li { border-bottom: 1px solid var(--color-line); }
   .site-nav__link { padding: 18px 4px; font-size: 1.15rem; }
   .site-header__phone span { display: none; }
+  .site-header__phone { padding: 0.7em; box-shadow: none; }
 }
 
 @media (max-width: 480px) {
