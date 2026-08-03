@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hannes0777.github.io/physio-ingo-fischer/sitemap.xml
