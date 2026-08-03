@@ -34,6 +34,19 @@
   var yearEl = document.getElementById('year');
   if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
 
+  // ── Leistungen-Vorschau: "Weitere Leistungen anzeigen" (nur Mobile) ──
+  var serviceToggle = document.querySelector('.service-list__toggle');
+  if (serviceToggle) {
+    var moreEl = document.getElementById(serviceToggle.getAttribute('aria-controls'));
+    var toggleLabel = serviceToggle.querySelector('span');
+    serviceToggle.addEventListener('click', function () {
+      var isOpen = serviceToggle.getAttribute('aria-expanded') === 'true';
+      serviceToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      if (moreEl) { moreEl.classList.toggle('is-open', !isOpen); }
+      if (toggleLabel) { toggleLabel.textContent = isOpen ? 'Weitere Leistungen anzeigen' : 'Weniger anzeigen'; }
+    });
+  }
+
   // ── Aktuelle Seite in der Navigation markieren ──────────────
   var currentPage = (window.location.pathname.split('/').pop() || 'index.html');
   document.querySelectorAll('.site-nav__link').forEach(function (link) {
