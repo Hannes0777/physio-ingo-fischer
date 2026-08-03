@@ -324,34 +324,14 @@ p:last-child { margin-bottom: 0; }
 .service-row h3 { margin: 0; font-size: 1.1rem; white-space: nowrap; }
 .service-row p { margin: 0; color: var(--color-ink-soft); font-size: 0.95rem; text-align: right; max-width: 46ch; }
 
-.service-list__toggle { display: none; }
-
 @media (max-width: 640px) {
   .service-row { flex-direction: column; gap: 4px; }
   .service-row p { text-align: left; }
 
   /* Sechs Leistungs-Zeilen auf einmal sind auf dem Handy zu viel Text —
-     nur die ersten drei stehen offen da, der Rest klappt auf Wunsch auf. */
+     nur die ersten drei stehen da, der Rest lebt schon im "Alle 16
+     Leistungen ansehen"-Button darunter (kein zweiter Button nötig). */
   .service-list__more { display: none; }
-  .service-list__more.is-open { display: block; }
-  .service-list__toggle {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    background: none;
-    border: none;
-    border-bottom: 1px solid var(--color-line);
-    padding: 18px 0;
-    font: inherit;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--color-blue-dark);
-    cursor: pointer;
-    text-align: left;
-  }
-  .service-list__toggle .chevron { width: 18px; height: 18px; margin-left: auto; flex-shrink: 0; transition: transform 0.2s ease; }
-  .service-list__toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
 }
 
 /* ── Leistungen: Übersichts-Karten (Startseite) ─────────────── */
