@@ -1,13 +1,9 @@
 /* ============================================================
    Physiotherapie Ingo Fischer – style.css
-   Ursprünglich ein Sticky-Top-Header wie bei fast jedem anderen
-   Projekt (Metzgerei Hinderer / Ebnisee / Schmalzried Heizung /
-   Physio Köpple) – ab ≥1025px jetzt bewusst eine feste Sidebar
-   links statt einer horizontalen Reihe oben (Nav-Links waren sonst
-   "an exakt derselben Stelle" wie überall sonst). Unter 1025px
-   bleibt das bewährte Sticky-Top-Bar + Hamburger-Muster erhalten,
-   da eine volle Sidebar auf schmalen/mobilen Bildschirmen für die
-   eher ältere Zielgruppe weniger vertraut wäre. Reines CSS, kein
+   Header ist bewusst rahmenlos/transparent statt einer soliden
+   Bar mit Trennlinie (ab ≥1025px stehen Nav-Links + Telefon-Button
+   dafür oben rechts zusammen statt zentriert) – Logo bleibt links,
+   der Rest wandert als Gruppe nach rechts. Reines CSS, kein
    Framework.
    ============================================================ */
 
@@ -35,7 +31,6 @@
   --shadow-soft: 0 10px 30px rgba(47, 70, 87, 0.12);
   --shadow-card: 0 18px 42px rgba(47, 70, 87, 0.16);
   --nav-height: 84px;
-  --sidebar-width: 236px;
 }
 
 /* ── Reset ───────────────────────────────────────────────────── */
@@ -137,11 +132,8 @@ p:last-child { margin-bottom: 0; }
   height: var(--nav-height);
   display: flex;
   align-items: center;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-line);
-  transition: box-shadow 0.2s ease;
+  background: transparent;
 }
-.site-header.is-scrolled { box-shadow: var(--shadow-soft); }
 .site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: 100%; }
 .site-header__brand { display: flex; align-items: center; gap: 12px; }
 .site-header__brand-text { display: flex; flex-direction: column; line-height: 1.15; }
@@ -205,9 +197,12 @@ p:last-child { margin-bottom: 0; }
 }
 .site-nav__link:hover, .site-nav__link.is-active { border-color: var(--color-clay); color: var(--color-blue-dark); }
 
-/* Desktop-Verhalten (≥1025px: feste Sidebar statt Inline-Reihe) steht
-   gesammelt am Dateiende, damit die Overrides zuverlässig nach allen
-   betroffenen Basis-Regeln (.subnav, .service-block etc.) stehen. */
+/* Ab 1025px rückt die Nav zusammen mit dem Telefon-Button als Gruppe
+   nach rechts (statt zentriert) — Logo bleibt allein links. */
+@media (min-width: 1025px) {
+  .site-header__inner { justify-content: flex-start; }
+  #site-nav { display: flex; margin-left: auto; }
+}
 
 @media (max-width: 1024px) {
   .nav-toggle { display: flex; }
@@ -483,43 +478,4 @@ p:last-child { margin-bottom: 0; }
 .reveal-group .reveal:nth-child(2) { transition-delay: 0.08s; }
 .reveal-group .reveal:nth-child(3) { transition-delay: 0.16s; }
 
-/* ── Desktop-Sidebar (≥1025px) ────────────────────────────────
-   Start/Leistungen/Kontakt standen bisher als zentrierte Reihe oben
-   im Header — exakt an derselben Stelle wie bei so gut wie jedem
-   anderen Projekt. Ab 1025px wird der Header stattdessen zu einer
-   festen linken Spalte; Inhalt und Footer rücken entsprechend ein.
-   Unter 1025px bleibt bewusst das bekannte Sticky-Top-Bar +
-   Hamburger-Muster erhalten (vertraut für die eher ältere Zielgruppe
-   dieser Praxis). Steht am Dateiende, damit die Overrides zuverlässig
-   nach .subnav / .service-block / html greifen. */
-@media (min-width: 1025px) {
-  .site-header {
-    position: fixed;
-    top: 0; left: 0; bottom: 0;
-    width: var(--sidebar-width);
-    height: 100vh;
-    border-bottom: none;
-    border-right: 1px solid var(--color-line);
-  }
-  .site-header__inner {
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    height: 100%;
-    padding: 36px 24px;
-    gap: 0;
-  }
-  .site-header__brand { margin-bottom: 44px; }
-  #site-nav { display: flex; }
-  .site-nav__list { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .site-nav__link { padding: 9px 2px; }
-  .site-header__actions { flex-direction: column; align-items: stretch; gap: 0; margin-top: auto; }
-  .site-header__phone { width: 100%; justify-content: center; }
-
-  html { scroll-padding-top: 16px; }
-  .subnav { top: 0; }
-  .service-block { scroll-margin-top: 72px; }
-
-  #main, .site-footer { margin-left: var(--sidebar-width); }
-}
 .reveal-group .reveal:nth-child(4) { transition-delay: 0.24s; }
