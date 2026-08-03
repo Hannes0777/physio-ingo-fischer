@@ -226,40 +226,38 @@ p:last-child { margin-bottom: 0; }
   pointer-events: none;
 }
 
-/* ── Hero (Vollflächiges Foto statt Farbfläche — unterscheidet sich
-   damit bewusst von Physio Köpples Salbeigrün-Flächen-Hero) ────── */
-.hero-full { position: relative; color: var(--color-white); display: flex; align-items: center; min-height: 78vh; }
-.hero-full__bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
-.hero-full__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(18,27,34,0.78) 0%, rgba(18,27,34,0.74) 50%, rgba(18,27,34,0.9) 100%);
-}
-.hero-full__bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.5) contrast(1.05); }
-.hero-full__content { position: relative; z-index: 1; padding-top: 64px; padding-bottom: 64px; max-width: 720px; width: 100%; text-shadow: 0 2px 16px rgba(10, 15, 19, 0.55); }
-.hero__title { margin-bottom: 0.4em; color: var(--color-white); }
-.hero__accent { display: block; color: var(--color-clay-pale); font-style: italic; font-weight: 500; }
-.hero__lead { margin: 1.1em 0 1.8em; color: rgba(255, 255, 255, 0.92); max-width: 56ch; }
-.hero__ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 2em; }
-.hero__facts { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 1.6em; border-top: 1px solid rgba(255, 255, 255, 0.22); }
-.hero__fact {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5em;
+/* ── Hero: "Bewegung" als Bild-Maske statt Stockfoto-Hero ────────
+   Ersetzt das Foto+Verlauf-Muster (identisch bei fast jedem bisherigen
+   Projekt) durch eine typografische Geste: das Wort selbst trägt den
+   Verlauf aus den zwei Marken-Akzentfarben (Taubenblau → Ton). Kein
+   Hero-Bild mehr zu laden verbessert nebenbei den LCP. */
+.hero-mask { padding: 56px 0 48px; }
+.hero-mask__word {
+  margin: 0;
+  font-size: clamp(3.2rem, 13vw, 9rem);
   font-weight: 700;
-  color: var(--color-white);
-  font-size: 0.85rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.26);
-  padding: 0.55em 1.1em;
-  border-radius: 999px;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  background: linear-gradient(100deg, var(--color-blue-dark) 0%, var(--color-blue) 45%, var(--color-clay-dark) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-.hero__fact svg { width: 16px; height: 16px; color: var(--color-clay-pale); flex-shrink: 0; }
+.hero-mask__continue {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  color: var(--color-blue-dark);
+  margin: 0.15em 0 0.85em;
+}
+.hero-mask .lead { margin-bottom: 1.8em; }
+.hero__lead { margin: 1.1em 0 1.8em; color: rgba(255, 255, 255, 0.92); max-width: 56ch; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 2.2em; }
+.hero__facts { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-top: 1.5em; border-top: 1px solid var(--color-line); }
+.hero__fact { display: inline-flex; align-items: center; gap: 0.5em; font-weight: 700; color: var(--color-ink-soft); font-size: 0.85rem; }
+.hero__fact svg { width: 16px; height: 16px; color: var(--color-blue); flex-shrink: 0; }
 
 @media (max-width: 640px) {
-  .hero-full { min-height: 86vh; }
-  .hero-full__content { padding-top: 48px; padding-bottom: 48px; }
+  .hero-mask { padding: 36px 0 32px; }
 }
 
 /* ── Seiten-Hero für Unterseiten (Leistungen/Kontakt) ───────────
@@ -288,29 +286,26 @@ p:last-child { margin-bottom: 0; }
 @media (min-width: 641px) { .page-header, .page-banner { display: none; } }
 @media (max-width: 640px) { .page-header { padding: 36px 0 32px; } .page-banner { aspect-ratio: 4/3; } }
 
-/* ── Vorteile / Feature-Karten ───────────────────────────────── */
-.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-.feature-card {
-  background: var(--color-paper);
-  border-radius: var(--radius);
-  padding: 32px 28px;
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.feature-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card); }
-.feature-card__icon {
-  width: 56px; height: 56px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius);
-  background: var(--color-blue-pale);
-  color: var(--color-blue-dark);
-  margin-bottom: 18px;
-}
-.feature-card__icon svg { width: 28px; height: 28px; }
-.feature-card p { color: var(--color-ink-soft); font-size: 0.98rem; }
+/* ── Vorteile: Regel-Liste statt Icon-Karten ─────────────────── */
+.pillars { display: flex; gap: 40px; flex-wrap: wrap; }
+.pillars > div { flex: 1; min-width: 220px; padding-top: 18px; border-top: 2px solid var(--color-clay); }
+.pillars h3 { margin-bottom: 0.4em; }
+.pillars p { color: var(--color-ink-soft); font-size: 0.98rem; margin: 0; }
 
-@media (max-width: 860px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) { .feature-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .pillars { flex-direction: column; gap: 28px; } }
+
+/* ── Leistungen-Vorschau (Startseite): Liste statt Icon-Karten ──
+   .service-grid/.service-card bleiben unverändert (von leistungen.html
+   weiter genutzt) — hier bewusst ein eigenes, schlankeres Muster. */
+.service-list { border-top: 1px solid var(--color-line); }
+.service-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--color-line); }
+.service-row h3 { margin: 0; font-size: 1.1rem; white-space: nowrap; }
+.service-row p { margin: 0; color: var(--color-ink-soft); font-size: 0.95rem; text-align: right; max-width: 46ch; }
+
+@media (max-width: 640px) {
+  .service-row { flex-direction: column; gap: 4px; }
+  .service-row p { text-align: left; }
+}
 
 /* ── Leistungen: Übersichts-Karten (Startseite) ─────────────── */
 .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
